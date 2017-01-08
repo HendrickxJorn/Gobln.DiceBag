@@ -39,4 +39,21 @@ cb.Add(new Dice(10000));
 cb.Roll();
 
 
+// custom dice
+var diceCustom = new CustomDice(new[] {"Eagel", "Snake", "Bear", "Wolf", "Fox", "Cat"});
+
+//roll the dice
+diceCustom.Roll();
+
+
+// multiple custom dice
+var cb = new CustomDicesCup();
+cb.Add(new CustomDice(new[] {"Eagel", "Snake", "Bear", "Wolf", "Fox", "Cat"}));
+cb.Add(new CustomDice(new[] {"Human", "Mammel", "Insect"}));
+cb.Add(new CustomDice(new[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"}));
+cb.Add(new CustomDice(new[] {"Eagel", "Snake", "Bear", "Wolf", "Fox", "Cat"}));
+
+// roll the cup
+cb.Roll();
+			
 ```
