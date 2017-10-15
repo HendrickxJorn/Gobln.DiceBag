@@ -8,7 +8,11 @@ namespace Gobln.DiceBag
     /// </summary>
     public class RngCryptoRandom : Random
     {
+#if FEATURE_TYPE_CORE10
+        private readonly RandomNumberGenerator _rng;
+#else
         private readonly RNGCryptoServiceProvider _rng;
+#endif
 
         private byte[] _buffer;
 
@@ -29,7 +33,11 @@ namespace Gobln.DiceBag
         /// <param name="randomPool">Enforce to use an random pool or not.</param>
         public RngCryptoRandom(bool randomPool)
         {
+#if FEATURE_TYPE_CORE10
+            _rng = RandomNumberGenerator.Create();
+#else
             _rng = new RNGCryptoServiceProvider();
+#endif
             _randomPool = randomPool;
         }
 
@@ -127,7 +135,7 @@ namespace Gobln.DiceBag
             }
         }
 
-        #region Private
+#region Private
 
         private void InitBuffer()
         {
@@ -166,6 +174,6 @@ namespace Gobln.DiceBag
                 InitBuffer();
         }
 
-        #endregion Private
+#endregion Private
     }
 }

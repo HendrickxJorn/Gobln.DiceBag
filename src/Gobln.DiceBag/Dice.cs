@@ -77,7 +77,7 @@ namespace Gobln.DiceBag
             if (amount < 1)
                 throw new ArgumentException("Amount must be greater then 0", "amount");
 
-            ResultRoll = 0;
+            //ResultRoll = 0;
             _size = size;
             _amount = amount;
             _modifier = modifier;
@@ -100,17 +100,24 @@ namespace Gobln.DiceBag
         /// <summary>
         /// Avarage value of the dice
         /// </summary>
-        public decimal Avarage { get { return ((decimal)Max + _amount) / 2 + _modifier; } }
+        // 'Callindrill' (2017/08/01) error in formula
+        public decimal Avarage { get { return _amount * (_size + 1) / 2.0M + _modifier; } }
 
         /// <summary>
         /// Result of the Roll, without modification
         /// </summary>
-        public int ResultRoll { get; private set; }
+        //public int ResultRoll { get; private set; }
+        public int ResultRoll { get { return DiceRollResult.Sum(); } }
 
         /// <summary>
         /// Result of the Roll, with modification
         /// </summary>
         public int Result { get { return ResultRoll == 0 ? 0 : ResultRoll + _modifier; } }
+
+        /// <summary>
+        /// Result of the Dice
+        /// </summary>
+        public int[] DiceRollResult { get; private set; }
 
         #endregion Properties
 
@@ -132,7 +139,9 @@ namespace Gobln.DiceBag
         /// <returns></returns>
         internal int Roll(RngCryptoRandom rcr)
         {
-            ResultRoll = Enumerable.Range(1, _amount).Sum(c => rcr.Next(1, _size + 1));
+            //ResultRoll = Enumerable.Range(1, _amount).Sum(c => rcr.Next(1, _size + 1));
+
+            DiceRollResult = Enumerable.Range(1, _amount).Select(c => rcr.Next(1, _size + 1)).ToArray();
 
             return ResultRoll + _modifier;
         }

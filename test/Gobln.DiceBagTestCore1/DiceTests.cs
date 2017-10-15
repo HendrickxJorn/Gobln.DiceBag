@@ -1,27 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Gobln.DiceBag;
+﻿using Gobln.DiceBag;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
-namespace Gobln.DiceBag.Tests
+
+namespace Gobln.DiceBagTestCore1
 {
     [TestClass()]
-    public class DiceTests
+    public class DiceCore1Tests
     {
         [TestMethod]
-        public void TestDiceRoll()
+        public void Core1TestDiceRoll()
         {
 
-            var dice2D6 = new Dice(DiceTypes.d6, 2);
+            var dice2D6 = new Dice(DiceTypes.d6, 2, 5);
 
             var re = dice2D6.Roll();
-
+            
             if (re == dice2D6.Result)
             {
-
+                
             }
 
             var dede = dice2D6.Avarage;
@@ -30,7 +26,7 @@ namespace Gobln.DiceBag.Tests
         }
 
         [TestMethod]
-        public void TestDiceCupRoll()
+        public void Core1TestDiceCupRoll()
         {
             var cb = new DicesCup();
             cb.Add(new Dice(DiceTypes.d6, 2));
@@ -60,3 +56,4 @@ namespace Gobln.DiceBag.Tests
         }
     }
 }
+
